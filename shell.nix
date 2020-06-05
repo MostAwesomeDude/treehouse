@@ -10,5 +10,6 @@ let
 in pkgs.stdenv.mkDerivation {
   name = "treehouse-env";
   buildInputs = with pkgs; [
+    keychain
   ];
 }
