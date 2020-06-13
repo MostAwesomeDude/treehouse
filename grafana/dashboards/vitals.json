@@ -596,10 +596,6 @@
     "list": [
       {
         "allValue": null,
-        "current": {
-          "text": "riddler",
-          "value": "riddler"
-        },
         "datasource": "prom",
         "definition": "label_values(instance)",
         "hide": 0,
@@ -608,23 +604,6 @@
         "label": "instance",
         "multi": false,
         "name": "instance",
-        "options": [
-          {
-            "selected": false,
-            "text": "harley",
-            "value": "harley"
-          },
-          {
-            "selected": false,
-            "text": "ivy",
-            "value": "ivy"
-          },
-          {
-            "selected": true,
-            "text": "toyman",
-            "value": "toyman"
-          }
-        ],
         "query": "label_values(instance)",
         "refresh": 0,
         "regex": "",
