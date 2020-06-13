@@ -15,9 +15,75 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": null,
+  "id": 5,
   "links": [],
   "panels": [
+    {
+      "columns": [
+        {
+          "text": "Current",
+          "value": "current"
+        },
+        {
+          "text": "Max",
+          "value": "max"
+        }
+      ],
+      "datasource": "prom",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Current Age",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 1,
+          "pattern": "Current",
+          "type": "number",
+          "unit": "dtdurations"
+        },
+        {
+          "alias": "Oldest Recently Seen",
+          "align": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 1,
+          "pattern": "Max",
+          "thresholds": [],
+          "type": "number",
+          "unit": "dtdurations"
+        }
+      ],
+      "targets": [
+        {
+          "expr": "time() - (min by (instance) (system_version_build_timestamp))",
+          "interval": "",
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Fleet Freshness",
+      "transform": "timeseries_aggregations",
+      "type": "table"
+    },
     {
       "aliasColors": {},
       "bars": false,
@@ -25,12 +91,14 @@
       "dashes": false,
       "datasource": "prom",
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 8
       },
+      "hiddenSeries": false,
       "id": 2,
       "legend": {
         "avg": false,
@@ -45,6 +113,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -55,10 +126,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "clamp_min(0.36 * (max by (job) (node_hwmon_temp_celsius) - 20), 5)",
+          "expr": "clamp_min(0.36 * (max by (instance) (node_hwmon_temp_celsius) - 20), 5)",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{job}}",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
@@ -104,7 +176,7 @@
       }
     }
   ],
-  "schemaVersion": 16,
+  "schemaVersion": 22,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -141,6 +213,9 @@
   },
   "timezone": "",
   "title": "House",
-  "uid": null,
-  "version": 0
+  "uid": "rvsDUsmGz",
+  "variables": {
+    "list": []
+  },
+  "version": 1
 }
