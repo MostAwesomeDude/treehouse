@@ -18,6 +18,7 @@ buildGoPackage rec {
   goDeps = ./deps.nix;
 
   meta = {
-    license = lib.licenses.unfree;
+    description = "Prometheus mDNS service discovery";
+    license = { fullName = "Unlicensed (GitHub license)"; };
   };
 }
