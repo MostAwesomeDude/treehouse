@@ -7,9 +7,11 @@ let
   };
   nixpkgs = import nixball { };
   inherit (nixpkgs) pkgs;
+  prometheus-mdns-sd = pkgs.callPackage ./prometheus-mdns-sd { };
 in pkgs.stdenv.mkDerivation {
   name = "treehouse-env";
   buildInputs = with pkgs; [
     keychain
+    prometheus-mdns-sd
   ];
 }
