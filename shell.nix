@@ -13,5 +13,6 @@ in pkgs.stdenv.mkDerivation {
   buildInputs = with pkgs; [
     keychain
     prometheus-mdns-sd
+    jq
   ];
 }
