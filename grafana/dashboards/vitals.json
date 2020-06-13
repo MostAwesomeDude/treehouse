@@ -89,7 +89,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "system_version_generation{job=\"$job\"}",
+          "expr": "system_version_generation{instance=\"$instance\"}",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -180,7 +180,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "deriv(node_network_receive_bytes_total{job=\"$job\"}[5m])",
+          "expr": "deriv(node_network_receive_bytes_total{instance=\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{device}}",
@@ -294,7 +294,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "time() - system_version_build_timestamp{job=\"$job\"}",
+          "expr": "time() - system_version_build_timestamp{instance=\"$instance\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -357,7 +357,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "deriv(node_network_transmit_bytes_total{job=\"$job\"}[5m])",
+          "expr": "deriv(node_network_transmit_bytes_total{instance=\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{device}}",
@@ -466,7 +466,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "node_filesystem_free_bytes{mountpoint=\"/nix/store\",job=\"$job\"}",
+          "expr": "node_filesystem_free_bytes{mountpoint=\"/nix/store\",instance=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -529,7 +529,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "node_hwmon_temp_celsius{job=\"$job\"}",
+          "expr": "node_hwmon_temp_celsius{instance=\"$instance\"}",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -601,13 +601,13 @@
           "value": "riddler"
         },
         "datasource": "prom",
-        "definition": "label_values(job)",
+        "definition": "label_values(instance)",
         "hide": 0,
         "includeAll": false,
         "index": -1,
-        "label": "job",
+        "label": "instance",
         "multi": false,
-        "name": "job",
+        "name": "instance",
         "options": [
           {
             "selected": false,
@@ -625,7 +625,7 @@
             "value": "toyman"
           }
         ],
-        "query": "label_values(job)",
+        "query": "label_values(instance)",
         "refresh": 0,
         "regex": "",
         "skipUrlSync": false,
