@@ -1,6 +1,7 @@
 { pkgs, ... }:
 let
   prometheus-mdns-sd = pkgs.callPackage ../prometheus-mdns-sd {};
+  exportJSON = "/var/lib/prometheus-mdns-sd.json";
 in
 {
   # Prometheus server/scraper.
@@ -11,7 +12,7 @@ in
         job_name = "mdns-sd";
         file_sd_configs = [
           {
-            files = [ "/var/lib/prometheus-mdns-sd.json" ];
+            files = [ exportJSON ];
           }
         ];
       }
@@ -25,7 +26,7 @@ in
     path = [ prometheus-mdns-sd ];
 
     serviceConfig = {
-      ExecStart = "${prometheus-mdns-sd}/bin/prometheus-mdns-sd -out /var/lib/prometheus-mdns-sd.json";
+      ExecStart = "${prometheus-mdns-sd}/bin/prometheus-mdns-sd -out ${exportJSON}";
     };
   };
 }
