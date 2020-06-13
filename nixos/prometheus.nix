@@ -4,7 +4,7 @@ let
   exportJSON = "/var/lib/prometheus-mdns-sd.json";
   prometheus-mdns-sd = pkgs.writeShellScript "prom-mdns-sd.sh" ''
     set -exu -o pipefail
-    ${pkgs.avahi}/bin/avahi-browse -l -r -t -p _prometheus-http._tcp \
+    ${pkgs.avahi}/bin/avahi-browse -r -t -p _prometheus-http._tcp \
       | grep '^=' \
       | ${pkgs.jq}/bin/jq -s -R '. / "\n"
         | map(select(length > 0)
