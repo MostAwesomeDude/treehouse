@@ -1,6 +1,7 @@
 { pkgs, config, ... }:
 {
   services = {
+    # Node exporter.
     prometheus.exporters.node = {
       enable = true;
       openFirewall = true;
@@ -9,6 +10,19 @@
         "--collector.textfile.directory=/var/lib/prom/"
       ];
     };
+
+    # mDNS for node exporter.
+    avahi.extraServiceFiles.prom = ''
+      <?xml version="1.0" standalone='no'?><!--*-nxml-*-->
+      <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+      <service-group>
+        <name replace-wildcards="yes">Prometheus Exporter for %h</name>
+        <service protocol="ipv4">
+          <type>_prometheus-http._tcp</type>
+          <port>9100</port>
+        </service>
+      </service-group>
+    '';
   };
 
   # system_version{release="20.XX",state="19.XX"} generation
