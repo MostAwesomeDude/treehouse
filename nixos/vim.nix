@@ -1,6 +1,8 @@
 { pkgs, ... }:
 let
   vim = pkgs.vim_configurable.customize {
+    name = "vim";
+
     vimrcConfig = {
       packages.custom = {
         start = with pkgs.vimPlugins; [ fugitive rainbow syntastic vim-speeddating ];
