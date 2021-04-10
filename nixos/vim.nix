@@ -5,8 +5,10 @@ let
 
     vimrcConfig = {
       packages.custom = {
-        start = with pkgs.vimPlugins; [ fugitive pathogen rainbow syntastic vim-speeddating ];
-        opt = with pkgs.vimPlugins; [ elm-vim jq-vim vim-nix vim-orgmode ];
+        start = with pkgs.vimPlugins; [
+          fugitive pathogen rainbow syntastic vim-dadbod vim-speeddating
+        ];
+        opt = with pkgs.vimPlugins; [ elm-vim idris-vim jq-vim vim-nix vim-orgmode ];
       };
 
       customRC = ''
