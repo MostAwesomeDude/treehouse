@@ -1,6 +1,5 @@
 { pkgs, ... }:
 let
-  # prometheus-mdns-sd = pkgs.callPackage ../prometheus-mdns-sd {};
   exportJSON = "/var/lib/prometheus-mdns-sd.json";
   prometheus-mdns-sd = pkgs.writeShellScript "prom-mdns-sd.sh" ''
     set -exu -o pipefail
@@ -80,9 +79,9 @@ in
       path = [ prometheus-mdns-sd ];
 
       serviceConfig = {
-        # ExecStart = "${prometheus-mdns-sd}/bin/prometheus-mdns-sd -out ${exportJSON}";
         ExecStart = prometheus-mdns-sd;
         Type = "oneshot";
+        TimeoutSec = 60;
       };
     };
   };
