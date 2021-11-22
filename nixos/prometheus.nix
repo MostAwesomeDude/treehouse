@@ -21,6 +21,11 @@ in
   # Prometheus server/scraper.
   services.prometheus = {
     enable = true;
+    alertmanagers = [{
+      static_configs = [{
+        targets = [ "batmite.local:9093" ];
+      }];
+    }];
     scrapeConfigs = [
       {
         job_name = "mdns-sd";
@@ -30,7 +35,32 @@ in
           }
         ];
       }
+      {
+        job_name = "alertmanager";
+        static_configs = [{
+          targets = [ "batmite.local:9093" ];
+        }];
+      }
     ];
+    rules = [''
+      groups:
+        - name: tlc
+          rules:
+          - alert: OverheatingMachine
+            expr: avg(node_hwmon_temp_celsius) by (instance) >= 70.0
+            for: 5m
+            labels:
+              severity: page
+            annotations:
+              summary: Machine {{ $labels.instance }} is overheating
+          - alert: LowNixStoreSpace
+            expr: node_filesystem_avail_bytes{mountpoint="/nix/store"} < (1024 * 1024 * 1024)
+            for: 5m
+            labels:
+              severity: page
+            annotations:
+              summary: Machine {{ $labels.instance }} has < 1GiB Nix store space
+    ''];
   };
 
   systemd = {
