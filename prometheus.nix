@@ -43,15 +43,24 @@ in
     ];
     rules = [''
       groups:
-        - name: tlc
+        - name: basic-machine-health
           rules:
-          - alert: OverheatingMachine
+          - alert: OverheatingThermalZone
+            expr: avg(node_thermal_zone_temp) by (instance) >= 70.0
+            for: 5m
+            labels:
+              severity: page
+            annotations:
+              summary: Machine {{ $labels.instance }} is overheating
+              driver: thermal_zone
+          - alert: OverheatingHardwareMonitor
             expr: avg(node_hwmon_temp_celsius) by (instance) >= 70.0
             for: 5m
             labels:
               severity: page
             annotations:
               summary: Machine {{ $labels.instance }} is overheating
+              driver: hwmon
           - alert: LowNixStoreSpace
             expr: node_filesystem_avail_bytes{mountpoint="/nix/store"} < (1024 * 1024 * 1024)
             for: 5m
@@ -59,6 +68,30 @@ in
               severity: page
             annotations:
               summary: Machine {{ $labels.instance }} has < 1GiB Nix store space
+          - alert: StaleBackups
+            expr: time() - backup_success_timestamp > (60 * 60 * 32)
+            for: 5m
+            labels:
+              severity: page
+            annotations:
+              summary: Machine {{ $labels.instance }} did not run nightly backups
+        - name: experimental
+          rules:
+          - alert: MaybeProblemMD
+            expr: node_md_disks{state="failed"} != 0
+            for: 5m
+            labels:
+              severity: page
+            annotations:
+              summary: Maybe {{ $labels.instance }} has a RAID array problem?
+              action: Fix the array and promote this alert
+          - alert: MaybeRiddlerDown
+            expr: up{instance="riddler.local"} != 1
+            for: 5m
+            labels:
+              severity: page
+            annotations:
+              summary: Riddler is not up?
     ''];
   };
 
