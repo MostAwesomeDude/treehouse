@@ -5,7 +5,7 @@
     prometheus.exporters.node = {
       enable = true;
       openFirewall = true;
-      enabledCollectors = [ "systemd" "textfile" "wifi" ];
+      enabledCollectors = [ "textfile" "wifi" ];
       extraFlags = [
         "--collector.textfile.directory=/var/lib/prom/"
       ];
