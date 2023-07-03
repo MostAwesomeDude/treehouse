@@ -8,7 +8,9 @@ let
         start = with pkgs.vimPlugins; [
           fugitive pathogen rainbow syntastic vim-dadbod vim-speeddating
         ];
-        opt = with pkgs.vimPlugins; [ elm-vim idris-vim jq-vim vim-nix vim-orgmode ];
+        opt = with pkgs.vimPlugins; [
+          elm-vim idris-vim jq-vim vim-metamath vim-nix vim-orgmode
+        ];
       };
 
       customRC = ''
@@ -70,6 +72,9 @@ let
 
         " Lojban
         au BufRead,BufNewfile *.jbo set ft=lojban syntax=lojban
+
+        " Metamath
+        au BufRead,BufNewfile *.mm set ft=metamath syntax=metamath
 
         " Status line.
         set laststatus=2
